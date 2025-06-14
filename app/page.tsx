@@ -66,6 +66,7 @@ const LearningAdventureHub = () => {
       }
 
       draw() {
+        if (!ctx) return;
         ctx.save()
         ctx.globalAlpha = this.opacity * (0.5 + Math.sin(this.pulse) * 0.4)
         ctx.beginPath()
