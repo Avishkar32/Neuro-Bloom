@@ -3,8 +3,6 @@
 import { useState, useEffect, useRef } from "react"
 import { ChevronRight, Sparkles, Rocket } from "lucide-react"
 
-
-
 const LearningAdventureHub = () => {
   const [hoveredCard, setHoveredCard] = useState(null)
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
@@ -176,7 +174,7 @@ const LearningAdventureHub = () => {
       icon: "🌊",
       description: "Advanced reading pattern recognition through immersive oceanic environments",
       features: ["Pattern Recognition", "Visual Processing", "Reading Fluency"],
-      link: "https://dsylexia-final.vercel.app/",
+      link: "/dyslexia-test",
     },
     {
       id: "dyscalculia",
@@ -189,7 +187,7 @@ const LearningAdventureHub = () => {
       icon: "🍭",
       description: "Mathematical reasoning through gamified candy-themed challenges",
       features: ["Number Sense", "Mathematical Logic", "Spatial Reasoning"],
-      link: "https://dyscalculia-screening-game.vercel.app/",
+      link: "/dyscalculia-test",
     },
     {
       id: "dysgraphia",
@@ -200,9 +198,9 @@ const LearningAdventureHub = () => {
       secondary: "#7C3AED",
       accent: "#A78BFA",
       icon: "🚀",
-      description: "AI-powered handwriting analysis in a galactic setting to detect writing challenges.",
-      features: ["Motor Coordination", "Writing Fluency", "Letter Shape & Stroke Detection"],
-      link: "https://dysgraphia-screening-test-eci3.vercel.app/",
+      description: "Fine motor skills evaluation in zero-gravity writing environments",
+      features: ["Motor Coordination", "Writing Fluency", "Spatial Awareness"],
+      link: "/dysgraphia-test",
     },
     {
       id: "adhd",
@@ -215,12 +213,12 @@ const LearningAdventureHub = () => {
       icon: "⚡",
       description: "Attention and focus measurement through dynamic space missions",
       features: ["Focus Control", "Impulse Management", "Task Switching"],
-      link: "https://adhd-hosted-rwmp.vercel.app/",
+      link: "/adhd-test",
     },
   ]
 
   const handleCardClick = (link) => {
-    window.location.href = link;
+    console.log(`Navigating to: ${link}`)
   }
 
   return (
@@ -286,7 +284,7 @@ const LearningAdventureHub = () => {
                     textShadow: `0 0 40px rgba(255, 255, 255, 0.1)`,
                   }}
                 >
-                  Neuro
+                  Learning
                 </span>
                 <span
                   className="block bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent relative"
@@ -295,7 +293,7 @@ const LearningAdventureHub = () => {
                     textShadow: `0 0 40px rgba(59, 130, 246, 0.2)`,
                   }}
                 >
-                  Bloom
+                  Nexus
                 </span>
               </h1>
 
@@ -311,7 +309,17 @@ const LearningAdventureHub = () => {
               >
                 ✨
               </div>
-              
+              <div
+                className="absolute text-4xl opacity-60"
+                style={{
+                  right: "20%",
+                  bottom: "-15%",
+                  transform: `translateY(${scrollY * -0.1}px) rotate(${-scrollY * 0.02}deg)`, // Reduced movement
+                  filter: `drop-shadow(0 0 10px rgba(168, 85, 247, 0.3))`,
+                }}
+              >
+                🧠
+              </div>
             </div>
 
             {/* Description - Minimal Parallax */}
@@ -328,10 +336,8 @@ const LearningAdventureHub = () => {
                     '"Inter", "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
                 }}
               >
-                Reimagining learning disability screening tests with AI-powered, child-friendly games.
-Scientifically inspired. Emotionally aware. Designed to detect — not intimidate.
-
-
+                Advanced diagnostic assessments powered by cutting-edge gamification technology. Discover cognitive
+                patterns through immersive, scientifically-designed experiences.
               </p>
             </div>
 
@@ -400,10 +406,10 @@ Scientifically inspired. Emotionally aware. Designed to detect — not intimidat
               {testCards.map((card, index) => (
                 <div
                   key={card.id}
-                  className="group relative cursor-pointer"
+                  className="group relative"
                   onMouseEnter={() => setHoveredCard(card.id)}
                   onMouseLeave={() => setHoveredCard(null)}
-                  onClick={() => window.location.href = card.link}
+                  onClick={() => handleCardClick(card.link)}
                   style={{
                     transform: `
                       translateY(${hoveredCard === card.id ? -15 : 0}px)
@@ -612,7 +618,7 @@ Scientifically inspired. Emotionally aware. Designed to detect — not intimidat
             >
               <div className="relative z-10">
                 <h3 className="text-2xl font-bold text-white mb-4 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
-                  Where Cognitive Science Meets Play
+                  Powered by Advanced Cognitive Science
                 </h3>
                 <p className="text-gray-400 leading-relaxed">
                   Our assessments utilize cutting-edge research in neuroscience and educational psychology to provide
@@ -620,10 +626,6 @@ Scientifically inspired. Emotionally aware. Designed to detect — not intimidat
                   learning differences while delivering precise insights.
                 </p>
               </div>
-              <br></br>
-              {/* <p className="text-xl text-gray-500 leading-relaxed font-bold ">
-                  Build with 💗 by Avishkar, Anuj, Jinieshwari n Hardik
-              </p> */}
             </div>
           </div>
         </footer>
