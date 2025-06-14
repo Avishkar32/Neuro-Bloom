@@ -24,9 +24,19 @@ const LearningAdventureHub = () => {
     canvas.height = window.innerHeight
 
     const particleCount = 60
-    const particleArray = []
 
+    // Move Particle class definition above particleArray
     class Particle {
+      x: number
+      y: number
+      size: number
+      speedX: number
+      speedY: number
+      opacity: number
+      pulse: number
+      pulseSpeed: number
+      color: string
+
       constructor() {
         this.x = Math.random() * canvas.width
         this.y = Math.random() * canvas.height
@@ -74,6 +84,9 @@ const LearningAdventureHub = () => {
         ctx.restore()
       }
     }
+
+    // Explicitly type particleArray as Particle[]
+    const particleArray: Particle[] = []
 
     // Initialize particles
     for (let i = 0; i < particleCount; i++) {
