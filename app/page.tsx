@@ -19,13 +19,13 @@ const LearningAdventureHub = () => {
   if (!canvas) return;
 
   const ctx = canvas.getContext("2d");
+  if (!ctx) return;
 
     canvas.width = window.innerWidth
     canvas.height = window.innerHeight
 
     const particleCount = 60
 
-    // Move Particle class definition above particleArray
     class Particle {
       x: number
       y: number
@@ -38,8 +38,10 @@ const LearningAdventureHub = () => {
       color: string
 
       constructor() {
-        this.x = Math.random() * canvas.width
-        this.y = Math.random() * canvas.height
+        const width = canvas ? canvas.width : window.innerWidth
+        const height = canvas ? canvas.height : window.innerHeight
+        this.x = Math.random() * width
+        this.y = Math.random() * height
         this.size = Math.random() * 3 + 1
         this.speedX = Math.random() * 1.5 - 0.75
         this.speedY = Math.random() * 1.5 - 0.75
@@ -54,10 +56,13 @@ const LearningAdventureHub = () => {
         this.y += this.speedY
         this.pulse += this.pulseSpeed
 
-        if (this.x > canvas.width) this.x = 0
-        if (this.x < 0) this.x = canvas.width
-        if (this.y > canvas.height) this.y = 0
-        if (this.y < 0) this.y = canvas.height
+        const width = canvas ? canvas.width : window.innerWidth
+        const height = canvas ? canvas.height : window.innerHeight
+
+        if (this.x > width) this.x = 0
+        if (this.x < 0) this.x = width
+        if (this.y > height) this.y = 0
+        if (this.y < 0) this.y = height
       }
 
       draw() {
