@@ -3,23 +3,20 @@
 import { useState, useEffect, useRef } from "react"
 import { ChevronRight, Sparkles, Rocket } from "lucide-react"
 
-
-
 const LearningAdventureHub = () => {
-  const [hoveredCard, setHoveredCard] = useState(null)
+  const [hoveredCard, setHoveredCard] = useState<string | null>(null)
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const [scrollY, setScrollY] = useState(0)
-  const canvasRef = useRef(null)
-  const animationRef = useRef(null)
+  const canvasRef = useRef<HTMLCanvasElement>(null)
+  const animationRef = useRef<number | null>(null)
 
   // Enhanced particle system - more prominent
   useEffect(() => {
-   const canvas = document.getElementById("my-canvas") as HTMLCanvasElement | null;
+    const canvas = canvasRef.current
+    if (!canvas) return
 
-  if (!canvas) return;
-
-  const ctx = canvas.getContext("2d");
-  if (!ctx) return;
+    const ctx = canvas.getContext("2d")
+    if (!ctx) return
 
     canvas.width = window.innerWidth
     canvas.height = window.innerHeight
@@ -38,10 +35,8 @@ const LearningAdventureHub = () => {
       color: string
 
       constructor() {
-        const width = canvas ? canvas.width : window.innerWidth
-        const height = canvas ? canvas.height : window.innerHeight
-        this.x = Math.random() * width
-        this.y = Math.random() * height
+        this.x = Math.random() * canvas.width
+        this.y = Math.random() * canvas.height
         this.size = Math.random() * 3 + 1
         this.speedX = Math.random() * 1.5 - 0.75
         this.speedY = Math.random() * 1.5 - 0.75
@@ -56,17 +51,14 @@ const LearningAdventureHub = () => {
         this.y += this.speedY
         this.pulse += this.pulseSpeed
 
-        const width = canvas ? canvas.width : window.innerWidth
-        const height = canvas ? canvas.height : window.innerHeight
-
-        if (this.x > width) this.x = 0
-        if (this.x < 0) this.x = width
-        if (this.y > height) this.y = 0
-        if (this.y < 0) this.y = height
+        if (this.x > canvas.width) this.x = 0
+        if (this.x < 0) this.x = canvas.width
+        if (this.y > canvas.height) this.y = 0
+        if (this.y < 0) this.y = canvas.height
       }
 
       draw() {
-        if (!ctx) return;
+        if (!ctx) return
         ctx.save()
         ctx.globalAlpha = this.opacity * (0.5 + Math.sin(this.pulse) * 0.4)
         ctx.beginPath()
@@ -91,10 +83,8 @@ const LearningAdventureHub = () => {
       }
     }
 
-    // Explicitly type particleArray as Particle[]
-    const particleArray: Particle[] = []
-
     // Initialize particles
+    const particleArray: Particle[] = []
     for (let i = 0; i < particleCount; i++) {
       particleArray.push(new Particle())
     }
@@ -156,7 +146,7 @@ const LearningAdventureHub = () => {
   useEffect(() => {
     let ticking = false
 
-    const handleMouseMove = (e) => {
+    const handleMouseMove = (e: MouseEvent) => {
       if (!ticking) {
         requestAnimationFrame(() => {
           setMousePosition({ x: e.clientX, y: e.clientY })
@@ -240,7 +230,6 @@ const LearningAdventureHub = () => {
     },
   ]
 
-
   return (
     <div
       className="min-h-screen bg-black relative overflow-hidden"
@@ -300,7 +289,7 @@ const LearningAdventureHub = () => {
                 <span
                   className="block bg-gradient-to-r from-white via-blue-100 to-purple-200 bg-clip-text text-transparent relative"
                   style={{
-                    transform: `translateY(${scrollY * -0.05}px)`, // Reduced from -0.2
+                    transform: `translateY(${scrollY * -0.05}px)`,
                     textShadow: `0 0 40px rgba(255, 255, 255, 0.1)`,
                   }}
                 >
@@ -309,7 +298,7 @@ const LearningAdventureHub = () => {
                 <span
                   className="block bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent relative"
                   style={{
-                    transform: `translateY(${scrollY * 0.03}px)`, // Reduced from 0.1
+                    transform: `translateY(${scrollY * 0.03}px)`,
                     textShadow: `0 0 40px rgba(59, 130, 246, 0.2)`,
                   }}
                 >
@@ -323,20 +312,19 @@ const LearningAdventureHub = () => {
                 style={{
                   left: "15%",
                   top: "-10%",
-                  transform: `translateY(${scrollY * -0.08}px) rotate(${scrollY * 0.02}deg)`, // Reduced movement
+                  transform: `translateY(${scrollY * -0.08}px) rotate(${scrollY * 0.02}deg)`,
                   filter: `drop-shadow(0 0 10px rgba(59, 130, 246, 0.3))`,
                 }}
               >
                 ✨
               </div>
-              
             </div>
 
             {/* Description - Minimal Parallax */}
             <div
               className="relative mb-12"
               style={{
-                transform: `translateY(${scrollY * -0.02}px)`, // Reduced from -0.1
+                transform: `translateY(${scrollY * -0.02}px)`,
               }}
             >
               <p
@@ -346,10 +334,8 @@ const LearningAdventureHub = () => {
                     '"Inter", "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
                 }}
               >
-                Reimagining learning disability screening tests with AI-powered, child-friendly games.
-Scientifically inspired. Emotionally aware. Designed to detect — not intimidate.
-
-
+                Reimagining learning disability screening tests with AI-powered, child-friendly games. Scientifically
+                inspired. Emotionally aware. Designed to detect — not intimidate.
               </p>
             </div>
 
@@ -357,7 +343,7 @@ Scientifically inspired. Emotionally aware. Designed to detect — not intimidat
             <div
               className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16"
               style={{
-                transform: `translateY(${scrollY * -0.01}px)`, // Reduced from -0.05
+                transform: `translateY(${scrollY * -0.01}px)`,
               }}
             >
               <button
@@ -421,7 +407,7 @@ Scientifically inspired. Emotionally aware. Designed to detect — not intimidat
                   className="group relative cursor-pointer"
                   onMouseEnter={() => setHoveredCard(card.id)}
                   onMouseLeave={() => setHoveredCard(null)}
-                  onClick={() => window.location.href = card.link}
+                  onClick={() => window.open(card.link, "_blank")}
                   style={{
                     transform: `
                       translateY(${hoveredCard === card.id ? -15 : 0}px)
@@ -638,10 +624,6 @@ Scientifically inspired. Emotionally aware. Designed to detect — not intimidat
                   learning differences while delivering precise insights.
                 </p>
               </div>
-              <br></br>
-              {/* <p className="text-xl text-gray-500 leading-relaxed font-bold ">
-                  Build with 💗 by Avishkar, Anuj, Jinieshwari n Hardik
-              </p> */}
             </div>
           </div>
         </footer>
