@@ -226,7 +226,7 @@ const LearningAdventureHub = () => {
       icon: "⚡",
       description: "Attention and focus measurement through dynamic space missions",
       features: ["Focus Control", "Impulse Management", "Task Switching"],
-      link: "https://adhd-hosted-rwmp.vercel.app/",
+      link: "https://adhd-eta.vercel.app/",
     },
   ]
 
